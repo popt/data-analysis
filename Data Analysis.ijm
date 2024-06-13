@@ -36,8 +36,7 @@ origHeight = getHeight();
 // Split channels
 run("Split Channels");
 
-
-//I have no idea why this works so well but it does; do not touch this function
+// I have no idea why this works so well but it does; do not touch this function
 if (nImages < 3) {
     // Only two images opened, assume the second one is the blue channel
     redChannelTitle = "C1-" + origTitle;
@@ -46,10 +45,9 @@ if (nImages < 3) {
     redChannelTitle = "C1-" + origTitle;
     greenChannelTitle = "C2-" + origTitle;
     blueChannelTitle = "C3-" + origTitle;
-selectWindow(greenChannelTitle);
-close();
+    selectWindow(greenChannelTitle);
+    close();
 }
-
 
 // Function to check if two rectangles overlap
 function overlap(x1, y1, x2, y2, width, height) {
@@ -96,7 +94,7 @@ function createDuplications(i) {
     mean = getResult("Mean", nResults - 1);
 
     // Check if mean intensity is less than or equal to 0.01
-    if (mean <= 0.4) {
+    if (mean <= 0.1) {
         // Close and delete the red and blue duplications
         close();
         selectWindow(name + "_Blue" + i);
@@ -162,6 +160,17 @@ for (i = 0; i < numAreas; i++) {
     run("Measure");
 }
 
-
 // Update the results table
 updateResults();
+
+// Ask the user if they want to close all duplications
+doCloseDuplications = getNumber("Do you want to close all duplications? Press '1' for Yes or '2' for No.", 2);
+
+if (doCloseDuplications == 1) {
+    for (i = 0; i < numAreas; i++) {
+        selectWindow(name + "_Red" + i);
+        close();
+        selectWindow(name + "_Blue" + i);
+        close();
+    }
+}
