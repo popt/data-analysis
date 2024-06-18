@@ -22,7 +22,7 @@
 
 // Parameters
 name = "Duplication";
-size = 100; // size of the duplicated areas (100x100 pixels)
+size = 150; // size of the duplicated areas (150x150 pixels)
 numAreas = 15; // number of unique areas to duplicate
 
 // Get the current image ID and title
